@@ -2,12 +2,13 @@ import java.util.Scanner;
 
 public class Cinedev {
 
+ 
     public static void main(String args[]) {
         Scanner leitor = new Scanner(System.in);
         char[][] SalaDeCinema = new char[10][20];
         
         int opcao;
-        int ocupados = 0;
+   
         // Inicia os assentos livres
         
         for (int i = 0; i < SalaDeCinema.length; i++) {
@@ -34,16 +35,16 @@ public class Cinedev {
                     comprarIngresso(SalaDeCinema, leitor);
                     break;
                 case 3:
-                    System.out.println("TEM QUE FAZER.");
+                    System.out.println("Função de cancelamento ainda não implementada.");
                     break;
                 case 4:
-                    System.out.println("TEM QUE FAZER.");
+                   RelatorioOcupacao(SalaDeCinema, leitor);
                     break;
                 case 5:
-                    System.out.println("Saindo do sistema. Ate logo");
+                    System.out.println("Saindo do sistema. Até logo!");
                     break;
                 default:
-                    System.out.println("Opção invalida. Tente novamente.");
+                    System.out.println("Opção inválida! Tente novamente.");
             }
 
         } while (opcao != 5);
@@ -52,11 +53,22 @@ public class Cinedev {
 
     
     public static void exibirMapa(char[][] SalaDeCinema) {
-System.out.println("TE ACALMA");
+ 
+
+
+    for (int j = 0; j < SalaDeCinema[0].length; j++) {
+        System.out.printf("%2d ", j + 1);
+    }
+    System.out.println();
+
+   
+    for (int i = 0; i < SalaDeCinema.length; i++) {
+        System.out.printf("F%2d | ", i + 1); 
+        for (int j = 0; j < SalaDeCinema[i].length; j++) {
+            System.out.print(SalaDeCinema[i][j] + "  ");
+        }
+    }
             }
-    
-        
-    
 
     // comprar ingresso
     public static void comprarIngresso(char[][] sala, Scanner leitor) {
@@ -70,7 +82,7 @@ System.out.println("TE ACALMA");
 
             //  limites
             if (fileira < 1 || fileira > sala.length || assento < 1 || assento > sala[0].length) {
-                System.out.println("Fileira ou assento invalido. Tente novamente.");
+                System.out.println("Erro: fileira ou assento invalido. Tente novamente.");
                 continue;
             }
 
@@ -79,20 +91,35 @@ System.out.println("TE ACALMA");
 
             // Verifica se ja está ocupado
             if (sala[i][j] == 'X') {
-                System.out.println("Esse assento ja esta ocupado ");
+                System.out.println("Esse assento ja está ocupado!");
                 System.out.print("Deseja tentar novamente? (1-Sim / 0-Não): ");
                 int opcao = leitor.nextInt();
                 if (opcao == 0) {
                     break; // vai pro menu
                 }
             } else {
-                sala[i][j] = 'X';
-                System.out.println("Ingresso comprado com sucesso.  Assento reservado.");
-                int ocupados = + 1;
+     sala[i][j] = 'X';
+                System.out.println("Ingresso comprado com sucesso! Assento reservado.");
                 break;
-                
+                //CANCELAR
             }
         }
     }
-
-}
+                
+                
+                
+                //RELATORIO OCUPAÇÃO
+                   public static void RelatorioOcupacao(char[][] sala, Scanner leitor) {
+                   int ocupados = 0; // contador local
+                   for (int i = 0; i < sala.length; i++) {
+                   for (int j = 0; j < sala[i].length; j++) {
+                   if (sala[i][j] == 'X') {
+                ocupados++;
+            }
+        }
+    }
+    System.out.println("Total de assentos ocupados: " + ocupados);
+}                   
+                   
+                   
+                   }
