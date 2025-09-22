@@ -9,7 +9,7 @@ public class Cinedev {
         
         int opcao;
    
-        // Inicia os assentos livres
+      
         
         for (int i = 0; i < SalaDeCinema.length; i++) {
             for (int j = 0; j < SalaDeCinema[i].length; j++) {
@@ -35,8 +35,8 @@ public class Cinedev {
                     comprarIngresso(SalaDeCinema, leitor);
                     break;
                 case 3:
-                    System.out.println("Função de cancelamento ainda não implementada.");
-                    break;
+                    cancelarIngresso(SalaDeCinema, leitor);
+                     break;
                 case 4:
                    RelatorioOcupacao(SalaDeCinema, leitor);
                     break;
@@ -70,7 +70,7 @@ public class Cinedev {
     }
             }
 
-    // comprar ingresso
+  
     public static void comprarIngresso(char[][] sala, Scanner leitor) {
         int fileira, assento;
 
@@ -80,7 +80,7 @@ public class Cinedev {
             System.out.print("Digite o numero do assento (1-20): ");
             assento = leitor.nextInt();
 
-            //  limites
+          
             if (fileira < 1 || fileira > sala.length || assento < 1 || assento > sala[0].length) {
                 System.out.println("Erro: fileira ou assento invalido. Tente novamente.");
                 continue;
@@ -89,37 +89,88 @@ public class Cinedev {
             int i = fileira - 1;
             int j = assento - 1;
 
-            // Verifica se ja está ocupado
+           
             if (sala[i][j] == 'X') {
                 System.out.println("Esse assento ja está ocupado!");
                 System.out.print("Deseja tentar novamente? (1-Sim / 0-Não): ");
                 int opcao = leitor.nextInt();
                 if (opcao == 0) {
-                    break; // vai pro menu
+                    break; 
                 }
             } else {
-     sala[i][j] = 'X';
+                sala[i][j] = 'X';
                 System.out.println("Ingresso comprado com sucesso! Assento reservado.");
                 break;
-                //CANCELAR
+          
             }
         }
     }
                 
+                public static void cancelarIngresso(char[][] sala, Scanner leitor) {
+    int fileira, assento;
+
+    while (true) {
+        System.out.print("Digite o número da fileira (1-10): ");
+        fileira = leitor.nextInt();
+        System.out.print("Digite o número do assento (1-20): ");
+        assento = leitor.nextInt();
+
+      
+        if (fileira < 1 || fileira > sala.length || assento < 1 || assento > sala[0].length) {
+            System.out.println("Erro: fileira ou assento inválido. Tente novamente.");
+            continue;
+        }
+
+        int i = fileira - 1;
+        int j = assento - 1;
+
+        
+        if (sala[i][j] == 'L') {
+            System.out.println("Esse assento já está livre!");
+            System.out.print("Deseja tentar novamente? (1-Sim / 0-Não): ");
+            int opcao = leitor.nextInt();
+            if (opcao == 0) {
+                break; 
+            }
+        } else {
+            sala[i][j] = 'L';
+            System.out.println("Cancelamento realizado com sucesso! Assento liberado.");
+            break;
+        }
+    }
+}
                 
-                
-                //RELATORIO OCUPAÇÃO
+             
                    public static void RelatorioOcupacao(char[][] sala, Scanner leitor) {
-                   int ocupados = 0; // contador local
+                    int valortotal = 0;
+                    for (int i = 0; i < sala.length; i++) {
+                   for (int j = 0; j < sala[i].length; j++) {   
+                   valortotal ++;
+                   }
+                    }
+                   System.out.println("Numero de assentos na sala:" + valortotal);
+                     int livres = 0;
+                      int ocupados = 0;
                    for (int i = 0; i < sala.length; i++) {
                    for (int j = 0; j < sala[i].length; j++) {
                    if (sala[i][j] == 'X') {
                 ocupados++;
-            }
-        }
-    }
-    System.out.println("Total de assentos ocupados: " + ocupados);
-}                   
-                   
-                   
                    }
+                else { 
+                livres ++;
+                        
+                        }
+                   }
+                   }
+                    double percentual = (ocupados / (double) valortotal) * 100;
+                    for (int i = 0; i < sala.length; i++) {
+                   for (int j = 0; j < sala[i].length; j++) {
+                
+          
+                   }
+                    }
+        System.out.printf("Percentual de ocupação: %.2f%%\n", percentual);      
+        System.out.println("Total de assentos ocupados:" + ocupados);
+                System.out.println("Total de assentos livres:" + livres);
+    }
+                   }                   
